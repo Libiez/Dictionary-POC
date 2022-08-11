@@ -1,0 +1,87 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation androidx.coreKtx
+    implementation androidx.appCompat
+
+    //Coroutines
+    implementation coroutines.coroutinesKtx
+    implementation coroutines.coroutinesCoreKtx
+
+    //Dagger - Hilt
+    implementation hilt.hiltAndroid
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation project(path: ':dictionary-data')
+    kapt hilt.kaptHiltAndroidCompiler
+    kapt hilt.kaptHiltCompiler
+
+    // Retrofit
+    implementation remote.retrofit
+    implementation remote.retrofitGsonConverter
+    implementation remote.okhttp
+    implementation remote.okhttpLoggingInterceptor
+
+    // Room
+    implementation androidx.roomDb
+    kapt androidx.kaptRoomDb
+    implementation androidx.datastorePreferences
+    implementation androidx.roomKtx
+
+    // Local unit tests
+    testImplementation testing.testingJunit
+    testImplementation testing.archTestingCore
+    testImplementation testing.testingCoroutines
+    testImplementation testing.testingTruth
+    debugImplementation testing.composeUiTestManifest
+
+    // Instrumentation tests
+    androidTestImplementation testing.hiltTesting
+    kaptAndroidTest hilt.kaptHiltAndroidCompiler
+    androidTestImplementation testing.testingJunit
+    androidTestImplementation testing.testingCoroutines
+    androidTestImplementation testing.archTestingCore
+    androidTestImplementation testing.testingTruth
+    androidTestImplementation testing.testCoreKtx
+    androidTestImplementation testing.okhttpMockWebServer
+    androidTestImplementation testing.composeUiTestJunit4
+    debugImplementation testing.composeUiTestManifest
+    testImplementation testing.unitTestingMockitoCore
+
+
+
+}

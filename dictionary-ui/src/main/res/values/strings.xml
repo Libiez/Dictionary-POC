@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Dictionary</string>
+    <string name="title_activity_main" tools:ignore="ExtraTranslation">MainActivity2</string>
+    <string name="intro_text" tools:ignore="ExtraTranslation">This is a simple dictionary , Provide  English language support. The dictionary was created using the Dictionary API (http://dictionaryapi.dev/)</string>
+</resources>

@@ -1,0 +1,107 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.lloyd.dictionary"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "com.lloyd.dictionary.ui.HiltRunnerClass"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation project(path: ':dictionary-domain')
+    implementation project(path: ':dictionary-data')
+    implementation androidx.coreKtx
+    implementation androidx.appCompat
+
+    implementation materialLibrary.material
+    implementation androidx.composeUiVersion
+    implementation androidx.composeMaterialVersion
+    implementation androidx.composeUiPreviewVersion
+    implementation androidx.lifecycleRuntimeKtx
+    implementation androidx.activityCompose
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
+    debugImplementation androidx.composeUiTooling
+
+    // Compose
+    implementation androidx.lifecycleViewModel
+    implementation androidx.navigationCompose
+    implementation androidx.materialIcons
+
+
+    //Coroutines
+    implementation coroutines.coroutinesKtx
+    implementation coroutines.coroutinesCoreKtx
+
+    //Hilt
+    implementation hilt.hiltAndroid
+    kapt hilt.kaptHiltAndroidCompiler
+    implementation hilt.hiltViewModel
+    kapt hilt.kaptHiltCompiler
+    implementation hilt.hiltNavigationCompose
+
+    // Local unit tests androidx.test:core
+    testImplementation testing.testingJunit
+    testImplementation testing.archTestingCore
+    testImplementation testing.testingCoroutines
+    testImplementation testing.testingTruth
+    testImplementation testing.testExtJunit
+    testImplementation testing.testCoreKtx
+
+    // Instrumentation tests
+    androidTestImplementation testing.archTestingCore
+    androidTestImplementation testing.hiltTesting
+    androidTestImplementation testing.testCoreKtx
+    kaptAndroidTest hilt.kaptHiltAndroidCompiler
+    androidTestImplementation testing.testingJunit
+    androidTestImplementation testing.testingCoroutines
+    androidTestImplementation testing.testingTruth
+    androidTestImplementation testing.composeUiTestJunit4
+    androidTestImplementation testing.testRunner
+    testImplementation testing.unitTestingMockitoCore
+
+
+
+}
